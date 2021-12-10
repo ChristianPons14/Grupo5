@@ -1,4 +1,4 @@
-package ftpcolumbia;
+package com.columbia.ftpcolumbia;
 
 public class Main {
 
