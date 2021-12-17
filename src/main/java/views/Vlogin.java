@@ -13,7 +13,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import lombok.Getter;
-import models.ViewsVariables;
+import models.LoginVariables;
 import java.awt.FlowLayout;
 
 /**
@@ -51,7 +51,7 @@ public class Vlogin extends JFrame {
 	 * partes de a misma
 	 */
 	private void prepareWindow() {
-		ViewsVariables var = new ViewsVariables();
+		LoginVariables var = new LoginVariables();
 
 		// Propiedades de la ventana
 		this.setTitle(var.getLoginTitle());

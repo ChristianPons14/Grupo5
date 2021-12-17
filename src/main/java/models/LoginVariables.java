@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
  * Contiene todos los datos de las ventanas
  */
 @Getter @NoArgsConstructor
-public class ViewsVariables {
+public class LoginVariables {
 
 	// Varaibles de VLogin
 	private String loginTitle = "Iniciar sesión";

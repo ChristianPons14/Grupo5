@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.border.LineBorder;
 
-import models.ViewsVariables;
+import models.LoginVariables;
 import views.Vlogin;
 
 /**
@@ -20,7 +20,7 @@ import views.Vlogin;
 public class ConLogin implements ActionListener{
 	
 	private Vlogin window;
-	private ViewsVariables var;
+	private LoginVariables var;
 
 	public ConLogin() {
 		prepareLoginWindow();
@@ -28,7 +28,7 @@ public class ConLogin implements ActionListener{
 
 	private void prepareLoginWindow() {
 		window = new Vlogin();
-		var = new ViewsVariables();
+		var = new LoginVariables();
 		window.getEnter().addActionListener(this);
 		
 		
