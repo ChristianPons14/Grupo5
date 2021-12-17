@@ -1,5 +1,6 @@
 package views;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,12 @@ import lombok.Getter;
 import models.ViewsVariables;
 import java.awt.FlowLayout;
 
+/**
+ * 
+ * @author Grupo 5
+ * 
+ *	Contiene los métodos para crear la ventana para iniciar sesión.
+ */
 @Getter
 public class Vlogin extends JFrame {
 
@@ -65,6 +72,7 @@ public class Vlogin extends JFrame {
 			JLabel label = new JLabel("Introduce los datos para iniciar sesi\u00F3n:");
 			panel.add(label);
 			panel.add(error);
+			error.setForeground(Color.red);
 		}
 		// Petición nombre
 		createNameSection(var.getName(), var.getVloginWidth(), window);

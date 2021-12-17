@@ -20,4 +20,6 @@ public class ViewsVariables {
 	private String name = "Nombre:";
 	private String password = "Contraseña:";
 	private String enter = "Introducir";
+	private String errorEmpty = "EL nombre o la contraseña están vacíos, por favor introduzca los datos";
+	private String errorNotFound = "El nombre o la contraseña son incorrectos, por favor inténtelo de nuevo";
 }
