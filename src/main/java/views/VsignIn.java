@@ -14,9 +14,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
 import lombok.Getter;
 import models.SignInVariables;
+import javax.swing.BoxLayout;
 
 /**
  * 
@@ -37,17 +39,16 @@ public class VsignIn extends JFrame {
 	private JPasswordField confPassword;
 	private Checkbox directive;
 	private JButton enter;
-	private int yLocation = 53;
+	private int yLocation = 73;
 
-	public VsignIn() {
-		prepareWindow();
+	public VsignIn(SignInVariables var) {
+		prepareWindow(var);
 	}
 	
 	// MÉTODOS
 
-	private void prepareWindow() {
+	private void prepareWindow(SignInVariables var) {
 		// Inicializamos las variables
-		SignInVariables var = new SignInVariables();
 		userName = new JTextField(17);
 		userSurnames = new JTextField(17);
 		password = new JPasswordField(17);
@@ -64,17 +65,17 @@ public class VsignIn extends JFrame {
 
 		// Contenedor principal
 		JPanel window = new JPanel();
-		this.add(window);
+		getContentPane().add(window);
 		window.setLayout(null);
 
 		// Secciones
 
 		// Encabezado
 		JPanel panel = new JPanel();
-		FlowLayout flowLayout = (FlowLayout) panel.getLayout();
-		flowLayout.setAlignment(FlowLayout.LEFT);
-		panel.setBounds(0, 0, 384, 30);
+		panel.setBounds(0, 0, var.getWindowWidth(), 50);
 		window.add(panel);
+		panel.setBorder(new EmptyBorder(10,20,0,0));
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		{
 			JLabel label = new JLabel(var.getText());
 			panel.add(label);

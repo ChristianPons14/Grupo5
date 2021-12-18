@@ -19,6 +19,7 @@ public class SignInVariables {
 	private String windowTitle = "Registrar usuario";
 	private String text = "Introduce los datos del usuario:";
 	private String errorEmpty = "Uno de los campos está vacío, por favor introduce los datos";
+	private String errorPassword = "Introduce la misma contraseña en los 2 campos";
 	private String name = "Nombre:";
 	private String surnames = "Apellidos:";
 	private String password = "Contraseña:";
