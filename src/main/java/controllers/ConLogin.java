@@ -22,14 +22,19 @@ public class ConLogin implements ActionListener{
 	private Vlogin window;
 	private LoginVariables var;
 
+	public static void main(String[] args) {	
+		new ConLogin();
+	}
+	
 	public ConLogin() {
+		var = new LoginVariables();
 		prepareLoginWindow();
 	}
 
 	private void prepareLoginWindow() {
-		window = new Vlogin();
-		var = new LoginVariables();
+		window = new Vlogin(var);
 		window.getEnter().addActionListener(this);
+		window.setVisible(true);
 		
 		
 	}

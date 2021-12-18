@@ -2,8 +2,7 @@ package views;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.util.ArrayList;
-import java.util.List;
+import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -11,10 +10,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import models.LoginVariables;
-import java.awt.FlowLayout;
+import javax.swing.BoxLayout;
 
 /**
  * 
@@ -31,17 +32,13 @@ public class Vlogin extends JFrame {
 	private JTextField userName;
 	private JPasswordField password;
 	private JButton enter;
+	private String name;
+	@Getter(AccessLevel.NONE) 
+	private int yLocation = 53;
 
-	public Vlogin() {
-		// Iniciamos las variables.
-		userName = new JTextField(17);
-		error = new JLabel();
-		password = new JPasswordField(17);
-		enter = new JButton();
-
+	public Vlogin(LoginVariables var) {
 		// Preparamos la ventana y la mostramos
-		prepareWindow();
-		this.setVisible(true);
+		prepareWindow(var);
 	}
 
 	// MÉTODOS
@@ -49,9 +46,14 @@ public class Vlogin extends JFrame {
 	/**
 	 * Introduce las propiedades de la ventana y lla a los métodos que crean las
 	 * partes de a misma
+	 * @param var 
 	 */
-	private void prepareWindow() {
-		LoginVariables var = new LoginVariables();
+	private void prepareWindow(LoginVariables var) {	
+		// Iniciamos las variables.
+				userName = new JTextField(17);
+				error = new JLabel();
+				password = new JPasswordField(17);
+				enter = new JButton();
 
 		// Propiedades de la ventana
 		this.setTitle(var.getLoginTitle());
@@ -66,10 +68,12 @@ public class Vlogin extends JFrame {
 
 		// Encabezado
 		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 384, 30);
+		panel.setBounds(0, 0, 384, 50);
 		window.add(panel);
+		panel.setBorder(new EmptyBorder(10,30,0,0));
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		{
-			JLabel label = new JLabel("Introduce los datos para iniciar sesi\u00F3n:");
+			JLabel label = new JLabel(var.getLoginText());
 			panel.add(label);
 			panel.add(error);
 			error.setForeground(Color.red);
@@ -98,7 +102,6 @@ public class Vlogin extends JFrame {
 		JPanel panel = getPanel(windowWidith);
 		panel.add(new JLabel(name));
 		panel.add(userName);
-		panel.setLocation(0, 53);
 		window.add(panel);
 	}
 
@@ -115,7 +118,6 @@ public class Vlogin extends JFrame {
 		JPanel panel = getPanel(windowWidith);
 		panel.add(new JLabel(text));
 		panel.add(password);
-		panel.setLocation(0, 103);
 		window.add(panel);
 	}
 
@@ -147,6 +149,8 @@ public class Vlogin extends JFrame {
 		FlowLayout flowLayout = (FlowLayout) panel.getLayout();
 		flowLayout.setAlignment(FlowLayout.RIGHT);
 		panel.setSize(new Dimension(windowWidith - (windowWidith / 2) / 2, 35));
+		panel.setLocation(0, yLocation);
+		yLocation += 40;
 		return panel;
 	}
 }
