@@ -13,7 +13,7 @@ import views.Vlogin;
  * 
  * @author Grupo 5
  * 
- *         Llama a la ventana Vlogin y permite iniciar sesión en el programa si
+ *         Llama a la ventana Vlogin, la muestra y permite iniciar sesión en el programa si
  *         los datos son correctos.
  *
  */
@@ -49,29 +49,29 @@ public class ConLogin implements ActionListener{
 		}
 	}
 
+	/**
+	 * Comprueba que los datos campos hayan sido rellenados
+	 * @return
+	 */
 	private boolean checkFields() {
-		try {
-			if(window.getUserName().getText().isBlank()) {
-				window.getUserName().setBorder(new LineBorder(Color.red));
-				throw new Exception();
-				
-			}else {
-				window.getUserName().setBorder(null);
-			}
+		boolean allFilled = true;
+		
+		if(window.getUserName().getText().isBlank()) {
+			window.getUserName().setBorder(new LineBorder(Color.red));
+			allFilled = false;
 			
-			if(window.getPassword().getPassword().toString().isBlank()) {
-				window.getPassword().setBorder(new LineBorder(Color.red));
-				throw new Exception();
-				
-			}else {
-				window.getUserName().setBorder(null);
-			}
-			return true;
-			
-		} catch (Exception e) {
-			window.getError().setText(var.getErrorEmpty());
-			return false;
+		}else {
+			window.getUserName().setBorder(new LineBorder(null));
 		}
+		
+		if(window.getPassword().getPassword().length <= 0) {
+			window.getPassword().setBorder(new LineBorder(Color.red));
+			allFilled = false;
+			
+		}else {
+			window.getUserName().setBorder(new LineBorder(null));
+		}
+		return allFilled;
 	}
 	
 	// Pendiente de desarrollar.
