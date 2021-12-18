@@ -39,52 +39,73 @@ public class ConSignIn implements ActionListener {
 		window.setVisible(true);
 	}
 
+	/**
+	 * Comprueba que los campos estén rellenos, que la contraseña sea correcta y lo
+	 * graba en la base de datos.
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		boolean filledFields = checkFilledFields();
-		
-		if(filledFields) {
+
+		if (filledFields) {
 			boolean okPassword = checkPassword();
-			
-			if(okPassword) {
+
+			if (okPassword) {
 				// Pendiente de los managers
 			}
-			
-			
-		}else {
+
+		} else {
 			window.getError().setText(var.getErrorEmpty());
 		}
 	}
 
+	/**
+	 * Comprueba si las 2 contraseñas introducidas son iguales.
+	 * 
+	 * @return
+	 *         <ul>
+	 *         <li>Verdadero si son iguales</li>
+	 *         <li>Falso si no son iguales</li>
+	 *         </ul>
+	 */
 	private boolean checkPassword() {
-		if(!window.getPassword().getPassword().equals(window.getPassword().getPassword())) {	
+		if (!window.getPassword().getPassword().equals(window.getPassword().getPassword())) {
 			window.getError().setText(var.getErrorPassword());
 			window.getPassword().setBorder(new LineBorder(Color.red));
 			window.getPassword().setText("");
 			window.getConfPassword().setBorder(new LineBorder(Color.red));
 			window.getConfPassword().setText("");
-			
+
 			return false;
-			
-		}else {
+
+		} else {
 			return true;
 		}
 	}
 
+	/**
+	 * Comprueba que todos los campos hayan sido rellenados y marca los que no.
+	 * 
+	 * @return
+	 *         <ul>
+	 *         <li>Verdadero si todos los campos están rellenos</li>
+	 *         <li>Falso si algún campo está vacío</li>
+	 *         </ul>
+	 */
 	private boolean checkFilledFields() {
 		boolean allFilled = true;
 
 		if (window.getUserName().getText().isBlank()) {
 			window.getUserName().setBorder(new LineBorder(Color.red));
 			allFilled = false;
-			
+
 		} else {
 			window.getUserName().setBorder(new LineBorder(null));
 		}
 		if (window.getUserSurnames().getText().isBlank()) {
 			window.getUserSurnames().setBorder(new LineBorder(Color.red));
 			allFilled = false;
-			
+
 		} else {
 			window.getUserSurnames().setBorder(new LineBorder(null));
 		}
@@ -92,7 +113,7 @@ public class ConSignIn implements ActionListener {
 		if (window.getPassword().getPassword().length <= 0) {
 			window.getPassword().setBorder(new LineBorder(Color.red));
 			allFilled = false;
-			
+
 		} else {
 			window.getPassword().setBorder(new LineBorder(null));
 		}
