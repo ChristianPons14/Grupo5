@@ -11,6 +11,7 @@ import javax.swing.JComponent;
 import javax.swing.border.LineBorder;
 
 import models.SignInVariables;
+import services.sql.UsersSQL;
 import views.VsignIn;
 
 /**
@@ -49,6 +50,7 @@ public class ConSignIn implements ActionListener {
 
 		if (filledFields) {
 			boolean okPassword = checkPassword();
+			
 
 			if (okPassword) {
 				// Pendiente de los managers
