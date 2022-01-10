@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.border.LineBorder;
 
 import models.LoginVariables;
+import services.sql.UsersSQL;
 import views.Vlogin;
 
 /**
@@ -45,7 +46,8 @@ public class ConLogin implements ActionListener{
 		
 		if(filledFields) {
 			//User user = checkDb();
-			
+			UsersSQL u = new UsersSQL(window);
+		
 		}
 	}
 
@@ -55,7 +57,6 @@ public class ConLogin implements ActionListener{
 	 */
 	private boolean checkFields() {
 		boolean allFilled = true;
-		
 		if(window.getUserName().getText().isBlank()) {
 			window.getUserName().setBorder(new LineBorder(Color.red));
 			allFilled = false;
