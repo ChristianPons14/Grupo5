@@ -50,6 +50,7 @@ public class ConSignIn implements ActionListener {
 
 		if (filledFields) {
 			boolean okPassword = checkPassword();
+			UsersSQL u = new UsersSQL(window);
 			
 
 			if (okPassword) {
@@ -71,7 +72,7 @@ public class ConSignIn implements ActionListener {
 	 *         </ul>
 	 */
 	private boolean checkPassword() {
-		if (!window.getPassword().getPassword().equals(window.getPassword().getPassword())) {
+		if (!window.getPassword().getText().equals(window.getConfPassword().getText())) {
 			window.getError().setText(var.getErrorPassword());
 			window.getPassword().setBorder(new LineBorder(Color.red));
 			window.getPassword().setText("");
