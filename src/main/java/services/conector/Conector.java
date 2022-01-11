@@ -1,10 +1,8 @@
 package services.conector;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
@@ -24,7 +22,7 @@ public class Conector {
 		}
 	}*/
 	try {
-		Class.forName("com.mysql.jdbc.Driver");
+		Class.forName("com.mysql.cj.jdbc.Driver");
 		conexion = DriverManager.getConnection("jdbc:mysql://localhost/columbia_1", "root", "");
 		crearState();
 	} catch (Exception e) {
