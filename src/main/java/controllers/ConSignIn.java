@@ -69,7 +69,7 @@ public class ConSignIn implements ActionListener {
 	 *         </ul>
 	 */
 	private boolean checkPassword() {
-		if (!window.getPassword().getPassword().equals(window.getPassword().getPassword())) {
+		if (!window.getPassword().getPassword().equals(window.getConfPassword().getPassword())) {
 			window.getError().setText(var.getErrorPassword());
 			window.getPassword().setBorder(new LineBorder(Color.red));
 			window.getPassword().setText("");
