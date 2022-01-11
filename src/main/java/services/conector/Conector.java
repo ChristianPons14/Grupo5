@@ -14,34 +14,32 @@ public class Conector {
 	Connection conexion;
 	Statement sentencia;
 	ResultSet rs;
-	
+
 	public Conector() {
-		/*try {
-			//Loads all the properties of file "config.properties".
+		try {
+			// Loads all the properties of file "config.properties".
 			prop.load(getClass().getClassLoader().getResourceAsStream("config.properties"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}*/
-	try {
-		Class.forName("com.mysql.jdbc.Driver");
-		conexion = DriverManager.getConnection("jdbc:mysql://localhost/columbia_1", "root", "");
-		crearState();
-	} catch (Exception e) {
-		e.printStackTrace();
+
+		/*
+		 * try { Class.forName("com.mysql.jdbc.Driver"); conexion =
+		 * DriverManager.getConnection("jdbc:mysql://localhost/columbia_1", "root", "");
+		 * crearState(); } catch (Exception e) { e.printStackTrace(); }
+		 */
 	}
-}
-/*
+
 	public Connection getMySQLConnection() {
 		try {
-			//Indicates which driver is going to be used.
+			// Indicates which driver is going to be used.
 			Class.forName(prop.getProperty(MySQLConstants.DRIVER));
 
 			try {
-				//Creates the connection based on the obtained URL.
+				// Creates the connection based on the obtained URL.
 				conexion = DriverManager.getConnection(getURL());
 				return conexion;
-		
+
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -49,10 +47,9 @@ public class Conector {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-			return null;
+		return null;
 	}
 
-	
 	private String getURL() {
 		return new StringBuilder().append(prop.getProperty(MySQLConstants.URL_PREFIX))
 		.append(prop.getProperty(MySQLConstants.URL_HOST)).append(":")
@@ -64,8 +61,8 @@ public class Conector {
 		
 		
 		// --- jdbc:mysql://localhost:3305/world?user=cPons&password=contraseÃ±a&userSSL=false
-		
-		}*/
+
+	/* Esto no debería estar aquí. Puedes crear un statment sin necesidad de darle nada
 	public void crearState() {
 		try {
 			sentencia = conexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -105,4 +102,4 @@ public class Conector {
 		}
 
 	}
-}
+}*/
