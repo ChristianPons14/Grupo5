@@ -52,54 +52,39 @@ public class Conector {
 
 	private String getURL() {
 		return new StringBuilder().append(prop.getProperty(MySQLConstants.URL_PREFIX))
-		.append(prop.getProperty(MySQLConstants.URL_HOST)).append(":")
-		.append(prop.getProperty(MySQLConstants.URL_PORT)).append("/")
-		.append(prop.getProperty(MySQLConstants.URL_SCHEMA)).append("?user=")
-		.append(prop.getProperty(MySQLConstants.USER)).append("&password=")
-		.append(prop.getProperty(MySQLConstants.PASSWD)).append("&useSSL=")
-		.append(prop.getProperty(MySQLConstants.URL_SSL)).toString();
-		
-		
-		// --- jdbc:mysql://localhost:3305/world?user=cPons&password=contraseÃ±a&userSSL=false
-
-	/* Esto no debería estar aquí. Puedes crear un statment sin necesidad de darle nada
-	public void crearState() {
-		try {
-			sentencia = conexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	public ResultSet crearSQL(String sql) {
-		try {
-			rs = sentencia.executeQuery(sql);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return rs;
+				.append(prop.getProperty(MySQLConstants.URL_HOST)).append(":")
+				.append(prop.getProperty(MySQLConstants.URL_PORT)).append("/")
+				.append(prop.getProperty(MySQLConstants.URL_SCHEMA)).append("?user=")
+				.append(prop.getProperty(MySQLConstants.USER)).append("&password=")
+				.append(prop.getProperty(MySQLConstants.PASSWD)).append("&useSSL=")
+				.append(prop.getProperty(MySQLConstants.URL_SSL)).toString();
 
 	}
+}
 
-	public boolean insertarEliminarBD(String sql) {
-		try {
-			sentencia.executeUpdate(sql);
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return false;
-	}
+// ---
+// jdbc:mysql://localhost:3305/world?user=cPons&password=contraseÃ±a&userSSL=false
 
-	public void cerrarSQL() {
-		try {
-			rs.close();
-			sentencia.close();
-			conexion.close();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	}
-}*/
+/*
+ * Esto no deberï¿½a estar aquï¿½. Puedes crear un statment sin necesidad de darle
+ * nada public void crearState() { try { sentencia =
+ * conexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
+ * ResultSet.CONCUR_READ_ONLY); } catch (Exception e) { e.printStackTrace(); } }
+ * 
+ * public ResultSet crearSQL(String sql) { try { rs =
+ * sentencia.executeQuery(sql); } catch (Exception e) { e.printStackTrace(); }
+ * return rs;
+ * 
+ * }
+ * 
+ * public boolean insertarEliminarBD(String sql) { try {
+ * sentencia.executeUpdate(sql); return true; } catch (Exception e) {
+ * e.printStackTrace(); } return false; }
+ * 
+ * public void cerrarSQL() { try { rs.close(); sentencia.close();
+ * conexion.close();
+ * 
+ * } catch (Exception e) { e.printStackTrace(); }
+ * 
+ * } }
+ */
