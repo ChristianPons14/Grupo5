@@ -41,7 +41,7 @@ public class ConSignIn implements ActionListener {
 	}
 
 	/**
-	 * Comprueba que los campos estén rellenos, que la contraseña sea correcta y lo
+	 * Comprueba que los campos estï¿½n rellenos, que la contraseï¿½a sea correcta y lo
 	 * graba en la base de datos.
 	 */
 	@Override
@@ -50,7 +50,7 @@ public class ConSignIn implements ActionListener {
 
 		if (filledFields) {
 			boolean okPassword = checkPassword();
-			UsersSQL u = new UsersSQL(window);
+			UsersSQL u = new UsersSQL();
 			
 
 			if (okPassword) {
@@ -63,7 +63,7 @@ public class ConSignIn implements ActionListener {
 	}
 
 	/**
-	 * Comprueba si las 2 contraseñas introducidas son iguales.
+	 * Comprueba si las 2 contraseï¿½as introducidas son iguales.
 	 * 
 	 * @return
 	 *         <ul>
@@ -91,8 +91,8 @@ public class ConSignIn implements ActionListener {
 	 * 
 	 * @return
 	 *         <ul>
-	 *         <li>Verdadero si todos los campos están rellenos</li>
-	 *         <li>Falso si algún campo está vacío</li>
+	 *         <li>Verdadero si todos los campos estï¿½n rellenos</li>
+	 *         <li>Falso si algï¿½n campo estï¿½ vacï¿½o</li>
 	 *         </ul>
 	 */
 	private boolean checkFilledFields() {

@@ -11,72 +11,67 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import services.conector.Conector;
-import views.VsignIn;
-
 /**
- * @author ezequ
+ * @author Grupo 5
  *
  */
 public class UsersSQL {
-	Conector c = new Conector();
-	ResultSet almacenador;
 	/*
-	private String userName;
-	private String userSurName;
-	private String password;
-	private boolean isDirective;
-	*/
+	 * private String userName; private String userSurName; private String password;
+	 * private boolean isDirective;
+	 */
 
-	public UsersSQL(VsignIn window) {
+	public UsersSQL() {
 
-		/* esto no estaría mal si solo tuviéramos la ventana de registrarse así que lo pondré para que lo reciba el método.
-		userName = window.getUserName().getText();
-		userSurName = window.getUserSurnames().getText();
-		password = window.getPassword().getPassword().toString();
 		/*
-		
-		/* Esto se debería llamar por método, no al llamar la clase en sí
-		checkExistUser();
-		if (checkExistUser() == false) {
-			createUser();
-		}*/
+		 * esto no estarï¿½a mal si solo tuviï¿½ramos la ventana de registrarse asï¿½ que lo
+		 * pondrï¿½ para que lo reciba el mï¿½todo. userName =
+		 * window.getUserName().getText(); userSurName =
+		 * window.getUserSurnames().getText(); password =
+		 * window.getPassword().getPassword().toString(); /*
+		 * 
+		 * /* Esto se deberï¿½a llamar por mï¿½todo, no al llamar la clase en sï¿½
+		 * checkExistUser(); if (checkExistUser() == false) { createUser(); }
+		 */
 
 	}
 
-	private boolean checkExistUser(Connection con, String userName, String password) {
-		/*almacenador = c.crearSQL("SELECT * FROM USERS WHERE user_name like '" + userName + "' and user_password like '"
-				+ password + "';");*/
+	public static boolean checkExistUser(Connection con, String userName, String password) {
+		/*
+		 * almacenador = c.crearSQL("SELECT * FROM USERS WHERE user_name like '" +
+		 * userName + "' and user_password like '" + password + "';");
+		 */
 		String sql = "SELECT * FROM users WHERE user_name like ? and user_password like ?";
-		
+
 		try {
 			PreparedStatement prepStmt = con.prepareStatement(sql);
 			prepStmt.setString(1, userName);
 			prepStmt.setString(2, password);
-			almacenador = prepStmt.executeQuery();
-			
-			if(almacenador.first()) {
+			ResultSet almacenador = prepStmt.executeQuery();
+
+			if (almacenador.first()) {
 				return true;
-				
-			}else {
+
+			} else {
 				return false;
-			}		
-			
+			}
+
 		} catch (SQLException e) {
 			return false;
-		}		
+		}
 	}
-	
-	private short createUser(Connection con, String userName, String userSurnames, String password, boolean isDirective) {
-		//la id ya es autoincremental de base, no hace falta obtener la id
+
+	public static short createUser(Connection con, String userName, String userSurnames, String password,
+			boolean isDirective) {
+		// la id ya es autoincremental de base, no hace falta obtener la id
 		/*
-		int lastId = 0;
-		LocalDate todaysDate = LocalDate.now();
-		*/
-		//almacenador = c.crearSQL("SELECT * FROM Users WHERE id=(SELECT max(id) FROM Users)");
+		 * int lastId = 0; LocalDate todaysDate = LocalDate.now();
+		 */
+		// almacenador = c.crearSQL("SELECT * FROM Users WHERE id=(SELECT max(id) FROM
+		// Users)");
 		String sql = "INSERT INTO users VALUES (?,?,?,?,?)";
-		
-		if(!checkExistUser(con, userName, password)) {
+
+		if (!checkExistUser(con, userName, password)) {
 			try {
 				PreparedStatement prepStmt = con.prepareStatement(sql);
 				prepStmt.setString(1, userName);
@@ -84,25 +79,26 @@ public class UsersSQL {
 				prepStmt.setString(3, password);
 				prepStmt.setBoolean(4, isDirective);
 				try {
-					// No estoy seguro de si esto está bien
-					prepStmt.setDate(5, (Date) new SimpleDateFormat("dd/MM/yyyy").parse(new java.util.Date().toString()));
+					// No estoy seguro de si esto estï¿½ bien
+					prepStmt.setDate(5,
+							(Date) new SimpleDateFormat("dd/MM/yyyy").parse(new java.util.Date().toString()));
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}
-				
+
 				prepStmt.executeUpdate();
 				return 1;
 				/*
-				if (almacenador.next()) {
-					//lastId = almacenador.getInt(1) + 1;
-					
-				}*/
+				 * if (almacenador.next()) { //lastId = almacenador.getInt(1) + 1;
+				 * 
+				 * }
+				 */
 			} catch (SQLException e) {
 				e.printStackTrace();
-				return 2;	
+				return 2;
 			}
-			
-		}else {
+
+		} else {
 			return 3;
 		}
 	}
