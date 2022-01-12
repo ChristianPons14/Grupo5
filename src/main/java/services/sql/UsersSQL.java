@@ -10,6 +10,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Grupo 5
@@ -21,22 +23,7 @@ public class UsersSQL {
 	 * private boolean isDirective;
 	 */
 
-	public UsersSQL() {
-
-		/*
-		 * esto no estar�a mal si solo tuvi�ramos la ventana de registrarse as� que lo
-		 * pondr� para que lo reciba el m�todo. userName =
-		 * window.getUserName().getText(); userSurName =
-		 * window.getUserSurnames().getText(); password =
-		 * window.getPassword().getPassword().toString(); /*
-		 * 
-		 * /* Esto se deber�a llamar por m�todo, no al llamar la clase en s�
-		 * checkExistUser(); if (checkExistUser() == false) { createUser(); }
-		 */
-
-	}
-
-	public static boolean checkExistUser(Connection con, String userName, String password) {
+	public static boolean checkLogin(Connection con, String userName, String password) {
 		/*
 		 * almacenador = c.crearSQL("SELECT * FROM USERS WHERE user_name like '" +
 		 * userName + "' and user_password like '" + password + "';");
@@ -49,19 +36,21 @@ public class UsersSQL {
 			prepStmt.setString(2, password);
 			ResultSet almacenador = prepStmt.executeQuery();
 
-			if (almacenador.first()) {
-				return true;
-
-			} else {
-				return false;
-			}
-
+			boolean check = almacenador.next();
+			
+			prepStmt.close();
+			almacenador.close();
+			
+			return check;
+			
 		} catch (SQLException e) {
-			return false;
+			
 		}
+		
+		return false;
 	}
 
-	public static short createUser(Connection con, String userName, String userSurnames, String password,
+	public static boolean createUser(Connection con, String userName, String userSurnames, String password,
 			boolean isDirective) {
 		// la id ya es autoincremental de base, no hace falta obtener la id
 		/*
@@ -70,36 +59,48 @@ public class UsersSQL {
 		// almacenador = c.crearSQL("SELECT * FROM Users WHERE id=(SELECT max(id) FROM
 		// Users)");
 		String sql = "INSERT INTO users VALUES (?,?,?,?,?)";
-
-		if (!checkExistUser(con, userName, password)) {
+		try {
+			PreparedStatement prepStmt = con.prepareStatement(sql);
+			prepStmt.setString(1, userName);
+			prepStmt.setString(2, userSurnames);
+			prepStmt.setString(3, password);
+			prepStmt.setBoolean(4, isDirective);
 			try {
-				PreparedStatement prepStmt = con.prepareStatement(sql);
-				prepStmt.setString(1, userName);
-				prepStmt.setString(2, userSurnames);
-				prepStmt.setString(3, password);
-				prepStmt.setBoolean(4, isDirective);
-				try {
-					// No estoy seguro de si esto est� bien
-					prepStmt.setDate(5,
-							(Date) new SimpleDateFormat("dd/MM/yyyy").parse(new java.util.Date().toString()));
-				} catch (ParseException e) {
-					e.printStackTrace();
-				}
-
-				prepStmt.executeUpdate();
-				return 1;
-				/*
-				 * if (almacenador.next()) { //lastId = almacenador.getInt(1) + 1;
-				 * 
-				 * }
-				 */
-			} catch (SQLException e) {
+				// No estoy seguro de si esto est� bien
+				prepStmt.setDate(5, (Date) new SimpleDateFormat("dd/MM/yyyy").parse(new java.util.Date().toString()));
+			} catch (ParseException e) {
 				e.printStackTrace();
-				return 2;
 			}
 
-		} else {
-			return 3;
+			int result = prepStmt.executeUpdate();
+			prepStmt.close();
+			
+			return result > 0;
+			
+		} catch (SQLException e) {
+			return false;
 		}
+
+	}
+	
+	public static List<User> retrieveAllUsers(Connection con) {
+		List<User> arrayUsers = new ArrayList<User>();
+		try {
+			PreparedStatement ps = con
+					.prepareStatement("SELECT ID, USER_NAME, USER_SURNAMES, DIRECTIVE, SIGN_IN FROM USERS");
+			ResultSet almacenador = ps.executeQuery();
+
+			while (almacenador.next()) {
+				User usuarios = new User(almacenador.getInt(1), almacenador.getString(2), almacenador.getString(3),
+						almacenador.getInt(4), almacenador.getDate(5));
+				arrayUsers.add(usuarios);
+			}
+			
+			ps.close();
+			almacenador.close();
+		} catch (SQLException e) {
+
+		}
+		return arrayUsers;
 	}
 }
