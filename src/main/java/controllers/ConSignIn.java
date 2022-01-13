@@ -3,14 +3,17 @@ package controllers;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 import javax.swing.border.LineBorder;
 
 import models.SignInVariables;
+import services.conector.Conector;
 import services.sql.UsersSQL;
 import views.VsignIn;
 
@@ -41,8 +44,8 @@ public class ConSignIn implements ActionListener {
 	}
 
 	/**
-	 * Comprueba que los campos estï¿½n rellenos, que la contraseï¿½a sea correcta y lo
-	 * graba en la base de datos.
+	 * Comprueba que los campos estï¿½n rellenos, que la contraseï¿½a sea correcta
+	 * y, si todo lo anterior se cumple, lo graba en la base de datos.
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -50,11 +53,34 @@ public class ConSignIn implements ActionListener {
 
 		if (filledFields) {
 			boolean okPassword = checkPassword();
-			UsersSQL u = new UsersSQL();
 			
-
 			if (okPassword) {
-				// Pendiente de los managers
+				try {
+					Connection con = new Conector().getMySQLConnection();
+					boolean userCreated = UsersSQL.createUser(con, window.getUserName().getText(),
+							window.getUserSurnames().getText(), new String(window.getPassword().getPassword()),
+							window.getDirective().getState());
+					
+					if(userCreated) {
+						JOptionPane.showMessageDialog(window,
+								"Se han añadido los datos del usuario corréctamente",
+								"Insertado realizado", JOptionPane.INFORMATION_MESSAGE);
+						window.dispose();
+						
+					} else {
+						JOptionPane.showMessageDialog(window,
+								"Ya existe un usuario con los datos introducidos",
+								"El usuario ya existe", JOptionPane.ERROR_MESSAGE);
+						window.getUserName().setText("");
+						window.getUserSurnames().setText("");
+						window.getPassword().setText("");
+						window.getConfPassword().setText("");
+						window.getDirective().setState(false);
+					}
+					con.close();
+				} catch (Exception e2) {
+				}
+
 			}
 
 		} else {
@@ -63,7 +89,7 @@ public class ConSignIn implements ActionListener {
 	}
 
 	/**
-	 * Comprueba si las 2 contraseï¿½as introducidas son iguales.
+	 * Comprueba si las 2 contraseñas introducidas son iguales.
 	 * 
 	 * @return
 	 *         <ul>
@@ -72,7 +98,10 @@ public class ConSignIn implements ActionListener {
 	 *         </ul>
 	 */
 	private boolean checkPassword() {
-		if (!window.getPassword().getPassword().toString().equals(window.getConfPassword().getPassword().toString())) {
+
+		if (!new String(window.getPassword().getPassword()).equals(new String(window.getConfPassword().getPassword()))) {
+			System.out.println(window.getPassword().getPassword().toString());
+			System.out.println(window.getConfPassword().getPassword().toString());
 			window.getError().setText(var.getErrorPassword());
 			window.getPassword().setBorder(new LineBorder(Color.red));
 			window.getPassword().setText("");

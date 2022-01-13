@@ -38,7 +38,10 @@ public class ConLogin implements ActionListener {
 		var = new LoginVariables();
 		prepareLoginWindow();
 	}
-
+	
+	/**
+	 * Crea la ventana, añade los eventos a los botones y muestra la ventana por pantalla
+	 */
 	private void prepareLoginWindow() {
 		window = new Vlogin(var);
 		window.getEnter().addActionListener(this);
@@ -46,6 +49,13 @@ public class ConLogin implements ActionListener {
 
 	}
 
+	/**
+	 *	Realiza una función en relación a si los campos deseados han sido rellenados o no.
+	 * <ul>
+	 * <li>Si los campos están rellenados, comprueba si el usuario existe.<li>
+	 * <li>Si no están rellenados, indicará que campos faltan por rellenar.<li>
+	 * </ul>
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		boolean filledFields = checkFields();
@@ -55,7 +65,7 @@ public class ConLogin implements ActionListener {
 			try {
 				Connection con = new Conector().getMySQLConnection();
 				User user = UsersSQL.checkLogin(con, window.getUserName().getText(),
-						window.getPassword().getPassword().toString());
+						new String(window.getPassword().getPassword()));
 
 				if (user == null) {
 					JOptionPane.showMessageDialog(window,
@@ -101,11 +111,4 @@ public class ConLogin implements ActionListener {
 		}
 		return allFilled;
 	}
-
-	// Pendiente de desarrollar.
-	/*
-	 * private boolean checkDb() {
-	 * 
-	 * return null; }
-	 */
 }

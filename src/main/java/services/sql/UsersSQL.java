@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -49,7 +50,7 @@ public class UsersSQL {
 
 	public static boolean createUser(Connection con, String userName, String userSurnames, String password,
 			boolean isDirective) {
-		String sql = "INSERT INTO users VALUES (?,?,?,?,?)";
+		String sql = "INSERT INTO users (user_name, user_surnames, user_password, directive, sign_in) VALUES (?,?,?,?,?)";
 		
 		try {
 			PreparedStatement prepStmt = con.prepareStatement(sql);
@@ -57,17 +58,12 @@ public class UsersSQL {
 			prepStmt.setString(2, userSurnames);
 			prepStmt.setString(3, password);
 			prepStmt.setBoolean(4, isDirective);
-			
-			try {
-				prepStmt.setDate(5, (Date) new SimpleDateFormat("dd/MM/yyyy").parse(new java.util.Date().toString()));
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
+			prepStmt.setDate(5, new Date(Calendar.getInstance().getTime().getTime()));
 
 			int result = prepStmt.executeUpdate();
 			prepStmt.close();
 			
-			return result > 0;
+			return true;
 			
 		} catch (SQLException e) {
 			return false;
