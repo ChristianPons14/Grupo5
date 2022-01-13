@@ -32,9 +32,8 @@ public class UsersSQL {
 			prepStmt.setString(2, password);
 			ResultSet almacenador = prepStmt.executeQuery();
 			User user;
-			if(!almacenador.next()) {
-				throw new SQLException();
-			}
+			almacenador.next();
+			
 			user = new User(almacenador.getInt(1), almacenador.getString(2), almacenador.getString(3),
 					almacenador.getInt(4), almacenador.getDate(5));
 			
