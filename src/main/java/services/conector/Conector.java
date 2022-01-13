@@ -8,7 +8,7 @@ import java.util.Properties;
 
 public class Conector {
 
-	private static Properties prop = new Properties();
+	Properties prop = new Properties();
 	
 	public Conector() {
 		try {
@@ -19,7 +19,7 @@ public class Conector {
 		}
 	}
 
-	public static Connection getMySQLConnection() {
+	public Connection getMySQLConnection() {
 		try {
 			//Indicates which driver is going to be used.
 			Class.forName(prop.getProperty(MySQLConstants.DRIVER));
@@ -37,9 +37,8 @@ public class Conector {
 		}
 			return null;
 	}
-
 	
-	private static String getURL() {
+	private String getURL() {
 		return new StringBuilder().append(prop.getProperty(MySQLConstants.URL_PREFIX))
 		.append(prop.getProperty(MySQLConstants.URL_HOST)).append(":")
 		.append(prop.getProperty(MySQLConstants.URL_PORT)).append("/")
