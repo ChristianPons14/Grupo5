@@ -44,7 +44,7 @@ public class ConLogin implements ActionListener{
 		boolean filledFields = checkFields();
 		
 		if(filledFields) {
-			//User user = checkDb();
+			//User user = 
 			
 		}
 	}

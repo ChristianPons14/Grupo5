@@ -23,50 +23,43 @@ public class UsersSQL {
 	 * private boolean isDirective;
 	 */
 
-	public static boolean checkLogin(Connection con, String userName, String password) {
-		/*
-		 * almacenador = c.crearSQL("SELECT * FROM USERS WHERE user_name like '" +
-		 * userName + "' and user_password like '" + password + "';");
-		 */
-		String sql = "SELECT * FROM users WHERE user_name like ? and user_password like ?";
+	public static User checkLogin(Connection con, String userName, String password) {
+		String sql = "SELECT ID, USER_NAME, USER_SURNAMES, DIRECTIVE, SIGN_IN FROM USERS WHERE USER_NAME like ? AND USER_PASSWORD LIKE ?";
 
 		try {
 			PreparedStatement prepStmt = con.prepareStatement(sql);
 			prepStmt.setString(1, userName);
 			prepStmt.setString(2, password);
 			ResultSet almacenador = prepStmt.executeQuery();
-
-			boolean check = almacenador.next();
+			User user;
+			if(!almacenador.next()) {
+				throw new SQLException();
+			}
+			user = new User(almacenador.getInt(1), almacenador.getString(2), almacenador.getString(3),
+					almacenador.getInt(4), almacenador.getDate(5));
 			
 			prepStmt.close();
 			almacenador.close();
 			
-			return check;
+			return user;
 			
 		} catch (SQLException e) {
-			
-		}
-		
-		return false;
+			return null;
+		}	
 	}
 
 	public static boolean createUser(Connection con, String userName, String userSurnames, String password,
 			boolean isDirective) {
-		// la id ya es autoincremental de base, no hace falta obtener la id
-		/*
-		 * int lastId = 0; LocalDate todaysDate = LocalDate.now();
-		 */
-		// almacenador = c.crearSQL("SELECT * FROM Users WHERE id=(SELECT max(id) FROM
-		// Users)");
 		String sql = "INSERT INTO users VALUES (?,?,?,?,?)";
+		
 		try {
 			PreparedStatement prepStmt = con.prepareStatement(sql);
 			prepStmt.setString(1, userName);
 			prepStmt.setString(2, userSurnames);
 			prepStmt.setString(3, password);
 			prepStmt.setBoolean(4, isDirective);
+			
 			try {
-				// No estoy seguro de si esto est� bien
 				prepStmt.setDate(5, (Date) new SimpleDateFormat("dd/MM/yyyy").parse(new java.util.Date().toString()));
 			} catch (ParseException e) {
 				e.printStackTrace();
@@ -81,6 +74,25 @@ public class UsersSQL {
 			return false;
 		}
 
+	}
+	
+	public static String getUserPassword(Connection con, String userName) {
+		String password = "";
+		
+		try {
+			String sql = "SELECT USER_PASSWORD FROM USERS WHERE USER_NAME = ?";
+			PreparedStatement prepStmt = con.prepareStatement(sql);
+			prepStmt.setString(1, userName);
+			ResultSet almacenador = prepStmt.executeQuery();
+			
+			if(almacenador.next()) {
+				password = almacenador.getString(1);
+			}
+		}catch (SQLException e) {
+
+		}
+		
+		return password;	
 	}
 	
 	public static List<User> retrieveAllUsers(Connection con) {
