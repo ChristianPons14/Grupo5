@@ -1,8 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: columbia.Test
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.072 s <<< FAILURE! - in columbia.Test
-test(columbia.Test)  Time elapsed: 0.009 s  <<< FAILURE!
-java.lang.AssertionError: Not yet implemented
-	at columbia.Test.test(Test.java:20)
-
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.076 s - in columbia.Test
