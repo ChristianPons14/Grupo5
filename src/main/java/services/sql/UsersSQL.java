@@ -14,20 +14,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Contiene las consultas con los usuarios de la aplicacion
  * @author Grupo 5
- *
+ * 
  */
 public class UsersSQL {
-	/*
-	 * private String userName; private String userSurName; private String password;
-	 * private boolean isDirective;
-	 */
 
+	/**
+	 * Hace login en la base de datos, si es correcto, devuelve true si hace login correctamente, false si no
+	 * @param con - Connection - Conexion MySQL usada
+	 * @param userName - String - usuario que inicia sesion
+	 * @param password - String - contraseña que se usa para iniciar
+	 * @return true si el login es correcto, o false si no es correcto o hay error
+	 */
 	public static boolean checkLogin(Connection con, String userName, String password) {
-		/*
-		 * almacenador = c.crearSQL("SELECT * FROM USERS WHERE user_name like '" +
-		 * userName + "' and user_password like '" + password + "';");
-		 */
 		String sql = "SELECT * FROM users WHERE user_name like ? and user_password like ?";
 
 		try {
@@ -50,14 +50,18 @@ public class UsersSQL {
 		return false;
 	}
 
+	/**
+	 * Crea un usuario, y devuelve un boolean en funcion de si el usuario se ha creado con exito
+	 * @param con - Connection - Conexion MySQL usada
+	 * @param userName - String - nombre de usuario creado
+	 * @param userSurnames - String - apellido del usuario creado
+	 * @param password - String - contraseña del usuario creado
+	 * @param isDirective - boolean - si es true, el usuario sera directivo y tendra permisos especiales
+	 * @return true si crea con exito, false si no puede crear bien
+	 */
 	public static boolean createUser(Connection con, String userName, String userSurnames, String password,
 			boolean isDirective) {
-		// la id ya es autoincremental de base, no hace falta obtener la id
-		/*
-		 * int lastId = 0; LocalDate todaysDate = LocalDate.now();
-		 */
-		// almacenador = c.crearSQL("SELECT * FROM Users WHERE id=(SELECT max(id) FROM
-		// Users)");
+		
 		String sql = "INSERT INTO users VALUES (?,?,?,?,?)";
 		try {
 			PreparedStatement prepStmt = con.prepareStatement(sql);
@@ -66,7 +70,6 @@ public class UsersSQL {
 			prepStmt.setString(3, password);
 			prepStmt.setBoolean(4, isDirective);
 			try {
-				// No estoy seguro de si esto est� bien
 				prepStmt.setDate(5, (Date) new SimpleDateFormat("dd/MM/yyyy").parse(new java.util.Date().toString()));
 			} catch (ParseException e) {
 				e.printStackTrace();
@@ -83,6 +86,11 @@ public class UsersSQL {
 
 	}
 	
+	/**
+	 * Devuelve la lista de todos los usuarios de la base de datos
+	 * @param Connection con - Conexion usada para MySQL
+	 * @return Lista con TODOS los usuarios de la base de datos
+	 */
 	public static List<User> retrieveAllUsers(Connection con) {
 		List<User> arrayUsers = new ArrayList<User>();
 		try {
