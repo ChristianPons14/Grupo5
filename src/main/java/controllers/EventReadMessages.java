@@ -24,7 +24,7 @@ public class EventReadMessages implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(((JButton) e.getSource()).getText().equals(var.getSend())){
-		 new SendMessages();
+		 new ConSendMessages();
 		}else {
 		JLabel label = new JLabel(var.getText());
 		JPanel panel = new JPanel();

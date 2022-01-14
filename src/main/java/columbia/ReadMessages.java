@@ -34,10 +34,10 @@ public class ReadMessages {
 		sql = new ReadMessagesSQL();
 		propsPop = new Properties();
 		propertiesPop();
-		leerMensaje();
+		readMensaje();
 	}
 
-	private void leerMensaje() {
+	private void readMensaje() {
 		String name = user.getUserName();
 		String sender = sql.getMail(con, name);;
 		String password = sql.getPassword(con, name);

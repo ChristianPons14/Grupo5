@@ -1,5 +1,6 @@
 package columbia;
 
+import java.util.ArrayList;
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -8,6 +9,7 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.swing.JTextField;
 
 import lombok.Getter;
 import models.GmailVariables;
@@ -18,7 +20,13 @@ public class SendMessages {
 	Properties propsSmtp;
 	GmailVariables var;
 
-	public SendMessages() {
+	public SendMessages(GmailVariables var, ArrayList<JTextField> textfields) {
+		this.var = var;
+		var.setSender(textfields.get(0).getText());
+		var.setPassword(textfields.get(1).getText());
+		var.setDestination(textfields.get(2).getText());
+		var.setSubject(textfields.get(3).getText());
+		var.setText(textfields.get(4).getText());
 		propsSmtp = new Properties();
 		propertiesStmp();
 		enviarMensaje();
