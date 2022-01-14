@@ -37,6 +37,8 @@ public class VsignIn extends JFrame {
 	private JLabel error;
 	private JPasswordField password;
 	private JPasswordField confPassword;
+	private JTextField userMail;
+	private JPasswordField mailPassword;
 	private Checkbox directive;
 	private JButton enter;
 	private int yLocation = 73;
@@ -53,6 +55,8 @@ public class VsignIn extends JFrame {
 		userSurnames = new JTextField(17);
 		password = new JPasswordField(17);
 		confPassword = new JPasswordField(17);
+		userMail = new JTextField(17);
+		mailPassword = new JPasswordField(17);
 		directive = new Checkbox(var.getDirective());
 		enter = new JButton(var.getEnter());
 		error = new JLabel();
@@ -109,6 +113,8 @@ public class VsignIn extends JFrame {
 		fields.add(userSurnames);
 		fields.add(password);
 		fields.add(confPassword);
+		fields.add(userMail);
+		fields.add(mailPassword);
 
 		for (int i = 0; i < fields.size(); i++) {
 			JPanel panel = getPanel(windowWidth);

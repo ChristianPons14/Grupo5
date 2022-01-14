@@ -76,7 +76,7 @@ public class ConLogin implements ActionListener {
 					checkFields();
 					
 				}else {
-					new ConMenu();
+					new ConMenu(user);
 					window.dispose();
 				}
 				con.close();

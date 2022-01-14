@@ -134,6 +134,7 @@ public class ConSignIn implements ActionListener {
 		} else {
 			window.getUserName().setBorder(new LineBorder(null));
 		}
+		
 		if (window.getUserSurnames().getText().isBlank()) {
 			window.getUserSurnames().setBorder(new LineBorder(Color.red));
 			allFilled = false;
@@ -156,6 +157,22 @@ public class ConSignIn implements ActionListener {
 
 		} else {
 			window.getConfPassword().setBorder(new LineBorder(null));
+		}
+		
+		if (window.getUserMail().getText().isBlank()) {
+			window.getUserMail().setBorder(new LineBorder(Color.red));
+			allFilled = false;
+
+		} else {
+			window.getUserMail().setBorder(new LineBorder(null));
+		}
+		
+		if (window.getMailPassword().getPassword().length <= 0) {
+			window.getMailPassword().setBorder(new LineBorder(Color.red));
+			allFilled = false;
+
+		} else {
+			window.getMailPassword().setBorder(new LineBorder(null));
 		}
 		return allFilled;
 	}

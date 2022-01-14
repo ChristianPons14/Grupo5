@@ -25,6 +25,7 @@ public class MenuVariables {
 	private String addFiles = "Añadir";
 	private String download = "Descargar";
 	private String changeName = "Cambiar nombre";
-	private String manageUsers = "gestión de usuarios";
-	private List<String> buttonTexts = new ArrayList<>(Arrays.asList(addFiles,download,changeName,deleteFiles,manageUsers));
+	private String addUser = "Añadir un nuevo usuario";
+	private String messages = "Mensajes";
+	private List<String> buttonTexts = new ArrayList<>(Arrays.asList(addFiles,download,changeName,deleteFiles, messages, addUser));
 }

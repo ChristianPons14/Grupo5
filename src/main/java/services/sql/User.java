@@ -11,6 +11,5 @@ public class User {
 	private int id;
 	private String userName;
 	private String userSurName;
-	private int directive;
-	private Date signIn;
+	private boolean directive;
 }

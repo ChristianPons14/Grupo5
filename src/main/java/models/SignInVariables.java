@@ -23,10 +23,12 @@ public class SignInVariables {
 	private String name = "Nombre:";
 	private String surnames = "Apellidos:";
 	private String password = "Contraseña:";
-	private String confirm = "confirmar contraseña";
+	private String confirm = "confirmar contraseña:";
+	private String mail = "Correo:";
+	private String mailPassword = "Contraseña correo:";
 	private String directive = "Directivo";
 	private String enter = "Introducir datos";
 	private short windowWidth = 500;
-	private short windowHeight = 400;
-	private List <String> labelTexts = new ArrayList<>(Arrays.asList(name,surnames, password, confirm));
+	private short windowHeight = 500;
+	private List <String> labelTexts = new ArrayList<>(Arrays.asList(name,surnames, password, confirm, mail, mailPassword));
 }
