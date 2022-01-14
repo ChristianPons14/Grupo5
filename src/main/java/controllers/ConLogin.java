@@ -48,7 +48,6 @@ public class ConLogin implements ActionListener{
 			
 		}
 	}
-
 	/**
 	 * Comprueba que los datos campos hayan sido rellenados
 	 * @return

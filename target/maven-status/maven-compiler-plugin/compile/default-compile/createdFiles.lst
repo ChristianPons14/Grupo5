@@ -1,5 +1,0 @@
-columbia\Main.class
-models\ViewsVariables.class
-services\conector\Conector.class
-services\conector\MySQLConstants.class
-views\Vlogin.class
