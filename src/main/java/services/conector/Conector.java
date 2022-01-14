@@ -2,9 +2,12 @@ package services.conector;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
+
+import javax.sql.DataSource;
+
+import com.mysql.cj.jdbc.MysqlDataSource;
 
 public class Conector {
 
@@ -19,25 +22,30 @@ public class Conector {
 		}
 	}
 
+	/**
+	 * @return Conexion con MySQL a partir del data source
+	 */
 	public Connection getMySQLConnection() {
 		try {
-			//Indicates which driver is going to be used.
-			Class.forName(prop.getProperty(MySQLConstants.DRIVER));
-
-			try {
-				//Creates the connection based on the obtained URL.
-				return DriverManager.getConnection(getURL());
-		
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			return getDataSource().getConnection();
+		} catch (SQLException e) {
+			
 		}
-			return null;
+		return null;
 	}
 	
+	/**
+	 * @return data source a partir de la url
+	 */
+	public DataSource getDataSource() {
+		MysqlDataSource source = new MysqlDataSource();
+		source.setUrl(getURL());
+		return source;
+	}
+	
+	/**
+	 * @return URL del archivo properties
+	 */
 	private String getURL() {
 		return new StringBuilder().append(prop.getProperty(MySQLConstants.URL_PREFIX))
 		.append(prop.getProperty(MySQLConstants.URL_HOST)).append(":")
