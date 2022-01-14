@@ -74,6 +74,9 @@ public class FTPServer {
 			});
 
 			/*
+			 * IMPORTANTE ENLACE
+			 * https://developpaper.com/spring-boot-integration-apache-ftpserver-detailed-tutorial-recommended/
+			 * 
 			 * DbUserManagerFactory userFactory = new DbUserManagerFactory();
 			 * userFactory.setDataSource(new Conector().getDataSource());
 			 * userFactory.setAdminName("admin"); userFactory.
