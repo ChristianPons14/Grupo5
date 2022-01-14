@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Arrays;
+import java.util.List;
 
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
@@ -20,19 +21,18 @@ import org.apache.commons.net.ftp.FTPReply;
 public class FtpClient {
 
 	public static final String HOST = "localhost";
-	public static final int PORT = 5000;
-	public static final String USERNAME = "asdf";
-	public static final String PASSWORD = "12345";
+	public static final int PORT = 21;
+	public static final String USERNAME = "admin";
+	public static final String PASSWORD = "admin";
 	
 	public static FTPClient client;
 
 	public static void main(String[] args) {
 		try {
 			client = conectarFtp(HOST, PORT, USERNAME, PASSWORD);
-			Arrays.asList(client.listFiles()).forEach(str -> System.out.println(str.toString()));
 			System.out.println(client.getReplyString());
 		} catch (IOException e) {
-			System.err.println("Error al conectar...");
+			e.printStackTrace();
 		}
 	}
 
@@ -175,5 +175,34 @@ public class FtpClient {
 			e.printStackTrace();
 		}
 		return flag;
+	}
+	
+	/**
+	 * Lista todos los ficheros del directorio actual
+	 * @param ftpClient - FTPClient - cliente ftp usado
+	 * @return lista de ficheros ftp
+	 */
+	public static List<FTPFile> listCurrentDirectory(FTPClient ftpClient) {
+		try {
+			return Arrays.asList(ftpClient.listFiles());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	/**
+	 * Lista todos los ficheros del directorio actual
+	 * @param ftpClient - FTPClient - cliente ftp usado
+	 * @param pathname - String - directorio en el que buscar
+	 * @return lista de ficheros ftp
+	 */
+	public static List<FTPFile> listDirectory(FTPClient ftpClient, String pathname) {
+		try {
+			return Arrays.asList(ftpClient.listFiles(pathname));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }
