@@ -53,23 +53,22 @@ public class ConSignIn implements ActionListener {
 
 		if (filledFields) {
 			boolean okPassword = checkPassword();
-			
+
 			if (okPassword) {
 				try {
 					Connection con = new Conector().getMySQLConnection();
 					boolean userCreated = UsersSQL.createUser(con, window.getUserName().getText(),
 							window.getUserSurnames().getText(), new String(window.getPassword().getPassword()),
-							window.getDirective().getState());
-					
-					if(userCreated) {
-						JOptionPane.showMessageDialog(window,
-								"Se han añadido los datos del usuario corréctamente",
+							window.getDirective().getState(), window.getUserMail().getText(),
+							new String(window.getMailPassword().getPassword()));
+
+					if (userCreated) {
+						JOptionPane.showMessageDialog(window, "Se han añadido los datos del usuario corréctamente",
 								"Insertado realizado", JOptionPane.INFORMATION_MESSAGE);
 						window.dispose();
-						
+
 					} else {
-						JOptionPane.showMessageDialog(window,
-								"Ya existe un usuario con los datos introducidos",
+						JOptionPane.showMessageDialog(window, "Ya existe un usuario con los datos introducidos",
 								"El usuario ya existe", JOptionPane.ERROR_MESSAGE);
 						window.getUserName().setText("");
 						window.getUserSurnames().setText("");
@@ -99,7 +98,8 @@ public class ConSignIn implements ActionListener {
 	 */
 	private boolean checkPassword() {
 
-		if (!new String(window.getPassword().getPassword()).equals(new String(window.getConfPassword().getPassword()))) {
+		if (!new String(window.getPassword().getPassword())
+				.equals(new String(window.getConfPassword().getPassword()))) {
 			System.out.println(window.getPassword().getPassword().toString());
 			System.out.println(window.getConfPassword().getPassword().toString());
 			window.getError().setText(var.getErrorPassword());
@@ -134,7 +134,7 @@ public class ConSignIn implements ActionListener {
 		} else {
 			window.getUserName().setBorder(new LineBorder(null));
 		}
-		
+
 		if (window.getUserSurnames().getText().isBlank()) {
 			window.getUserSurnames().setBorder(new LineBorder(Color.red));
 			allFilled = false;
@@ -158,7 +158,7 @@ public class ConSignIn implements ActionListener {
 		} else {
 			window.getConfPassword().setBorder(new LineBorder(null));
 		}
-		
+
 		if (window.getUserMail().getText().isBlank()) {
 			window.getUserMail().setBorder(new LineBorder(Color.red));
 			allFilled = false;
@@ -166,7 +166,7 @@ public class ConSignIn implements ActionListener {
 		} else {
 			window.getUserMail().setBorder(new LineBorder(null));
 		}
-		
+
 		if (window.getMailPassword().getPassword().length <= 0) {
 			window.getMailPassword().setBorder(new LineBorder(Color.red));
 			allFilled = false;

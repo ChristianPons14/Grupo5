@@ -36,7 +36,7 @@ public class UsersSQL {
 			almacenador.next();
 			
 			user = new User(almacenador.getInt(1), almacenador.getString(2), almacenador.getString(3),
-					almacenador.getInt(4), almacenador.getDate(5));
+					almacenador.getBoolean(4));
 			
 			prepStmt.close();
 			almacenador.close();
@@ -49,8 +49,8 @@ public class UsersSQL {
 	}
 
 	public static boolean createUser(Connection con, String userName, String userSurnames, String password,
-			boolean isDirective) {
-		String sql = "INSERT INTO users (user_name, user_surnames, user_password, directive, sign_in) VALUES (?,?,?,?,?)";
+			boolean isDirective, String mail, String mailPassword) {
+		String sql = "INSERT INTO users (user_name, user_surnames, user_password, directive, mail, mail_password, home_directory, sign_in) VALUES (?,?,?,?,?,?,?,?)";
 		
 		try {
 			PreparedStatement prepStmt = con.prepareStatement(sql);
@@ -58,7 +58,10 @@ public class UsersSQL {
 			prepStmt.setString(2, userSurnames);
 			prepStmt.setString(3, password);
 			prepStmt.setBoolean(4, isDirective);
-			prepStmt.setDate(5, new Date(Calendar.getInstance().getTime().getTime()));
+			prepStmt.setString(5,mail);
+			prepStmt.setString(6, mailPassword);
+			prepStmt.setString(7, "pepe");
+			prepStmt.setDate(8, new Date(Calendar.getInstance().getTime().getTime()));
 
 			int result = prepStmt.executeUpdate();
 			prepStmt.close();
@@ -66,6 +69,8 @@ public class UsersSQL {
 			return true;
 			
 		} catch (SQLException e) {
+			System.out.println("Patata");
+			e.printStackTrace();
 			return false;
 		}
 
@@ -99,7 +104,7 @@ public class UsersSQL {
 
 			while (almacenador.next()) {
 				User usuarios = new User(almacenador.getInt(1), almacenador.getString(2), almacenador.getString(3),
-						almacenador.getInt(4), almacenador.getDate(5));
+						almacenador.getBoolean(4));
 				arrayUsers.add(usuarios);
 			}
 			
