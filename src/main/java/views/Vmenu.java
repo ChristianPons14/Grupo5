@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +15,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 
 import lombok.Getter;
 import models.MenuVariables;
@@ -27,23 +30,24 @@ import models.MenuVariables;
 public class Vmenu extends JFrame {
 
 	// ATRIBUTOS
-
 	private JTree files;
+	private DefaultTreeModel model;
 	private List<JButton> buttons;
 
-	public Vmenu(MenuVariables var, boolean isDirective) {
+	public Vmenu(MenuVariables var, boolean isDirective) throws IOException {
 		prepareWindow(var, isDirective);
 	}
 
-	// MÉTODOS
+	// Mï¿½TODOS
 
 	/**
-	 * Crea y prepara la ventana del menú .
+	 * Crea y prepara la ventana del menï¿½ .
 	 * 
 	 * @param var         Datos para crear la ventana.
 	 * @param isDirective Indica si el usuario es un directivo o no.
+	 * @throws IOException 
 	 */
-	private void prepareWindow(MenuVariables var, boolean isDirective) {
+	private void prepareWindow(MenuVariables var, boolean isDirective) throws IOException {
 
 		// Propiedades de las ventanas.
 		this.setTitle(var.getTitle());
@@ -76,24 +80,27 @@ public class Vmenu extends JFrame {
 	}
 
 	/**
-	 * Crea la sección para ver y seleccionar las carpetas y ficheros.
+	 * Crea la secciï¿½n para ver y seleccionar las carpetas y ficheros.
 	 * 
 	 * @param window Contenedor que contiene al resto de paneles.
+	 * @throws IOException 
 	 */
-	private void createFileSection(JPanel window) {
+	private void createFileSection(JPanel window) throws IOException {
 		JScrollPane scroll = new JScrollPane();
 		JPanel panel = new JPanel();
 		panel.setLayout(new FlowLayout(FlowLayout.LEFT));
 		panel.setBackground(Color.white);
-		files = new JTree();
+		model = new DefaultTreeModel(new DefaultMutableTreeNode());
+		files = new JTree(model);
+		files.setRootVisible(false);
 		panel.add(files);
 		scroll.setViewportView(panel);
 		window.add(scroll, BorderLayout.CENTER);
 	}
 
 	/**
-	 * Crea la sección con los botones para seleccionar la opción a realizar. Si es
-	 * usuario es un directivo tendrá una opción extra que es la de gestionar los
+	 * Crea la secciï¿½n con los botones para seleccionar la opciï¿½n a realizar. Si es
+	 * usuario es un directivo tendrï¿½ una opciï¿½n extra que es la de gestionar los
 	 * usuarios.
 	 * 
 	 * @param window      Contenedor que contiene al resto de paneles.
